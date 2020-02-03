@@ -38,11 +38,15 @@ int partition(int arr[], int low, int high, size_t s)
 		{
 			i++;
 			swap(&arr[i], &arr[j]);
-			print_array(arr, s);
+			if (arr[i] != arr[j])
+				print_array(arr, s);
 		}
 	}
 	swap(&arr[i + 1], &arr[high]);
-	print_array(arr, s);
+
+	if (arr[i + 1] != arr[high])
+		print_array(arr, s);
+
 	return (i + 1);
 }
 
