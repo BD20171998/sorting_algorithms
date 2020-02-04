@@ -1,50 +1,40 @@
 #include "sort.h"
-
-void swap(listint_t **n2, listint_t **n1)
-{
-
-	listint_t **temp1, **temp2;
-
-	temp1 = n2;
-	temp2 = n1;
-
-	(*temp1)->prev = *temp2;
-	(*temp1)->next = (*temp2)->next;
-	(*temp2)->prev = (*temp1)->prev;
-	(*temp2)->next = *temp1;
-
-}
-
 /**
- * insertion_sort_list - insertion sort algo
- * @list: Pointer to a linked list
+ * insertion_sort_list - algorithm to sort DLL
+ * @list: List that needs to be sorted.
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *n1 = *list;
-	listint_t *n2 = n1->next;
-	listint_t *p = n1->next;
+	listint_t *curr, *before, *dot;
 
-	if (n1 == NULL || n1->next == NULL)
+	if (!list|| !*list|| !(*list)->next)
 		return;
 
-	for(; p; p = p->next)
-	{
-		if (n2->n < n1->n)
-			swap(&n2, &n1);
+	curr = (*list)->next;
+	before = *list;
 
-		while(1)
-		{
-			if (n1->prev == NULL)
-				break;
-			if (n1->n > n1->prev->n)
-				break;
-			if (n1->n < n1->prev->n)
-			{
-				n1->prev = n1;
-				n2->prev = n2;
-				swap(&n2, &n1);
-			}
+	for (; curr; curr = curr->next)
+	{
+		before = curr;
+		printf("curr->n: %d\n", curr->n);
+		while (curr->n < before->prev->n && before && before->prev)
+		{	
+			dot = before->prev;
+			printf("dot->n: %d\n", dot->n);
+			printf("before->n: %d\n", dot->n);
+			if (dot->prev)
+				dot->prev->next = before;
+			/**Re-assign head*/
+			else
+				*list = before;
+			if (before->next != NULL)
+				before->next->prev  = dot;
+			dot->next = before->next;
+			before->prev = dot->prev;
+			before->next = dot;
+			dot->prev = before;
+
+			print_list(*list);
 		}
 	}
 }
