@@ -1,4 +1,5 @@
 # 0x1B - Sorting Algorithms
 
-## 1. Bubble Sort
-## 2. Insertion Sort
+## 0. Bubble Sort
+## 1. Insertion Sort
+## 2. Selection Sort
