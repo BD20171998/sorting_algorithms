@@ -1,1 +1,3 @@
-This is a README for 0x1B. C - Sorting algorithms & Big O
+# 0x1B - Sorting Algorithms
+
+## 1. Bubble Sort
