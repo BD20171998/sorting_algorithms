@@ -1,144 +1,117 @@
 #include "sort.h"
 
 /**
- * swap - function that swaps memory addressed for 2 elements from an
+ * printer - function that swaps memory addressed for 2 elements from an
  * integer array
- * @a: Int pointer for first element that will be swapped
- * @b: Int pointer for second element that will be swapped
+ * @text: Char pointer for text to print during merge
+ * @a: Int array
+ * @start: Size_t beginning index for left side of array to print
+ * @end_inc:  Size_t ending index for right side of array to print
  * Return: Void
  */
 
-void swap(int *a, int *b)
+void printer(char *text, int a[], size_t start, size_t end_inc)
 {
-	int temp;
+	size_t n;
 
-	temp = *a;
-	*a = *b;
-	*b = temp;
+	printf("%s: ", text);
+
+	for (n = start; n <= end_inc; ++n)
+	{
+		if (n  == end_inc || !end_inc || end_inc == start)
+		{
+			printf("%d\n", a[n]);
+			break;
+		}
+
+			printf("%d, ", a[n]);
+	}
 }
 
+/**
+ * merge - helper function that sorts and merges array elements
+ * @copy: copy of original int array to be sorted
+ * @begin: Size_t beginning index for left side of partition
+ * @mid: Size_t index for midpoint of partition
+ * @end: Size_t index for endpoint of partition
+ * @arr: Most recently sorted partition
+ * Return: Void
+ */
 
 void merge(int copy[], size_t begin, size_t mid, size_t end, int arr[])
 {
-	size_t i = 0, j = mid, k = begin, n, n1 = mid - begin + 1, n2 = end - mid;
+	size_t i = begin, j = mid, k = begin;
 
-	while (i <= n1 && j <= n2)
+	printf("Merging...\n");
+	printer("[left]", copy, begin, mid == 0 ? 0 : mid - 1);
+	printer("[right]", copy, mid, end);
+
+	while (i < mid && j <= end)
 	{
- 		printf("Merging...\n");
-/*		printf("[left]: ");
-		for (n = i; n < mid; ++n)
-		{
-			if (n == i - 1)
-			{
-				printf("%d\n", arr[n]);
-				break;
-			}
-
-		        printf("%d, ", arr[n]);
-		}
-
-		printf("\n[right]: ");
-
-		for (n = mid; n < end; ++n)
-		{
-			if (n == mid - 1)
-			{
-				printf("%d\n", arr[n]);
-				break;
-			}
-
-		        printf("%d, ", arr[n]);
-		}
-*/
 		if (copy[i] <= copy[j])
 		{
 			arr[k] = copy[i];
 			++i;
 		}
+
 		else
 		{
 			arr[k] = copy[j];
 			++j;
 		}
 
-		printf("\n[Done]: ");
-
-		for (n = 0; n < end; ++n)
-		{
-			if (n == end - 1)
-			{
-				printf("%d\n", arr[n]);
-				break;
-			}
-
-		        printf("%d, ", arr[n]);
-		}
 		++k;
 	}
 
-	while (i < n1)
+	while (i < mid)
 	{
 		arr[k] = copy[i];
 		i++;
 		k++;
-
-	printf("\n[Done]: ");
-
-		for (n = 0; n < end; ++n)
-		{
-			if (n == end - 1)
-			{
-				printf("%d\n", arr[n]);
-				break;
-			}
-
-		        printf("%d, ", arr[n]);
-		}
-
 	}
 
-	while (j < n2)
+	while (j <= end)
 	{
 		arr[k] = copy[j];
 		j++;
 		k++;
-
-	printf("\n[Done]: ");
-
-		for (n = 0; n < end; ++n)
-		{
-			if (n == end - 1)
-			{
-				printf("%d\n", arr[n]);
-				break;
-			}
-
-		        printf("%d, ", arr[n]);
-		}
 	}
-
+	printer("[Done]", arr, begin, end);
 }
+
+/**
+ * qs - Function that passes updated arguments and creates recursion calls for
+ * the merge function
+ * @copy: copy of original int array to be sorted
+ * @begin: Size_t beginning index for left side of partition
+ * @end: Size_t index for endpoint of partition
+ * @arr: Most recently sorted partition
+ * Return: Void
+ */
 
 void qs(int copy[], size_t begin, size_t end, int arr[])
 {
 	size_t mid, diff;
 
-	printf("Lo:%u Hi:%u\n", (unsigned int)begin, (unsigned int)end);
-
-	if (end - begin < 2)
+	if (end - begin < 1)
 		return;
 
-	if (begin < end)
-	{
-		diff = (end - begin);
-		diff += diff % 2;
-		mid = begin + diff / 2;
+	diff = (end - begin);
+	diff += diff % 2;
+	mid = begin + diff / 2;
 
-		qs(arr, begin, mid - 1, copy);
-		qs(arr, mid, end, copy);
-		merge(copy, begin, mid, end, arr);
-	}
+	qs(arr, begin, mid - 1, copy);
+	qs(arr, mid, end, copy);
+	merge(copy, begin, mid, end, arr);
 }
+
+/**
+ * merge_sort - Function that sorts an array of integers in ascending order
+ * using the Merge sort algorithm
+ * @array: Integer array to be sorted
+ * @size: Size_t variable denoting size of array to be sorted
+ * Return: Void
+ */
 
 void merge_sort(int *array, size_t size)
 {
@@ -158,4 +131,5 @@ void merge_sort(int *array, size_t size)
 		copy[i] = array[i];
 
 	qs(copy, 0, size - 1, array);
+	free(copy);
 }
