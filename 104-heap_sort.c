@@ -26,7 +26,7 @@ void heapify(int a[], size_t i, size_t end, size_t n)
 	if (right < end && a[right] > a[max])
 		max = right;
 
-	if (max != i)
+	if (max != i && max < n)
 	{
 		temp = a[i];
 		a[i] = a[max];
@@ -70,15 +70,12 @@ void heap_sort(int *array, size_t size)
 
 	build_max_heap(array, size);
 
-	n = size;
-
-	while (n >= 1)
+	for (n = size; n >= 2; n--)
 	{
 		temp = array[n - 1];
 		array[n - 1] = array[0];
 		array[0] = temp;
 		print_array(array, size);
 		heapify(array, 0, n - 1, size);
-		n--;
 	}
 }
