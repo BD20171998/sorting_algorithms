@@ -65,7 +65,7 @@ void heap_sort(int *array, size_t size)
 	int temp;
 	size_t n;
 
-	if (array == NULL || size < 3)
+	if (array == NULL || size < 2)
 		return;
 
 	build_max_heap(array, size);
