@@ -33,6 +33,9 @@ General
 
 - Write a function that sorts an array of integers in ascending order using the Quick sort algorithm
 
+### [6. Counting sort](./102-counting_sort.c)
+
+- Write a function that sorts an array of integers in ascending order using the Counting sort algorithm
 
 ### [7. Merge sort](./103-merge_sort.c)
 
