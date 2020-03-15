@@ -19,39 +19,46 @@ void cleanup(int *ind, int *cnt, int *sum, int *srt)
 }
 
 /**
- * edge_cases - function that handles certain edge cases
- * @arr: Integer array to be sorted
+ * copy - function that copies an int array to another
+ * @arr1: Integer array to be copied
+ * @arr2: Integer array to copy to
  * @s: Size_t variable denoting size of array to be sorted
  * Return: Void
  */
 
-void edge_cases(int *arr, size_t s)
+void copy(int *arr1, int *arr2, size_t s)
 {
-	if (arr == NULL || s < 2)
-		return;
+	int i;
+
+	for (i = 0; i < (int) s; i++)
+		arr1[i] = arr2[i];
 }
 
 /**
- * minimum - function that finds minimum from passed int array
- * @arr: Integer array to be sorted
- * @s: Size_t variable denoting size of array to be sorted
- * Return: minimum value of array
+ * sorted - function that creates sorted array
+ * @array: Integer array to be sorted
+ * @size: Size_t variable denoting size of array to be sorted
+ * @index: int array for index array used
+ * @sumCount: int array for sumCount array used
+ * Return: Pointer to new sorted array
  */
 
-int minimum(int *arr, size_t s)
+int *sorted(int *array, size_t size, int *index, int *sumCount)
 {
-	int m;
-	size_t i;
+	int *sorted;
+	int i;
 
-	m = arr[0];
+	sorted = malloc(size * sizeof(int));
 
-	for (i = 0; i < s; i++)
+	for (i = 0; i <= (int) size; i++)
 	{
-		if (arr[i] < m)
-			m = arr[i];
+		if (array[i] == index[array[i]])
+		{
+			sorted[sumCount[array[i]] - 1] = array[i];
+			--sumCount[array[i]];
+		}
 	}
-
-	return (m);
+	return (sorted);
 }
 
 /**
@@ -88,9 +95,11 @@ int maximum(int *arr, size_t s)
 void counting_sort(int *array, size_t size)
 {
 	int i, max, s_index;
-	int *count, *index, *sumCount, *sorted;
+	int *count, *index, *sumCount, *sort;
 
-	edge_cases(array, size);
+	if (array == NULL || size < 2)
+		return;
+
 	max = maximum(array, size);
 	s_index = max + 1;
 	index = malloc((s_index) * sizeof(int));
@@ -116,14 +125,10 @@ void counting_sort(int *array, size_t size)
 		sumCount[i] = count[i] + sumCount[i - 1];
 
 	print_array(sumCount, (size_t) s_index);
-	sorted = malloc(size * sizeof(int));
 
-	for (i = 0; i <= (int) size; i++)
-		if (array[i] == index[array[i]])
-			sorted[sumCount[array[i]] - 1] = array[i];
+	sort = sorted(array, size, index, sumCount);
 
-	for (i = 0; i < (int) size; i++)
-		array[i] = sorted[i];
+	copy(array, sort, size);
 
-	cleanup(index, count, sumCount, sorted);
+	cleanup(index, count, sumCount, sort);
 }
