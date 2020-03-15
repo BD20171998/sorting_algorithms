@@ -50,6 +50,23 @@ int *sorted(int *array, size_t size, int *index, int *sumCount)
 
 	sorted = malloc(size * sizeof(int));
 
+	if (size == 2)
+	{
+		if (array[0] >= array[1])
+		{
+			sorted[1] = array[0];
+			sorted[0] = array[1];
+			return (sorted);
+		}
+
+		else
+		{
+			sorted[0] = array[0];
+			sorted[1] = array[1];
+			return (sorted);
+		}
+	}
+
 	for (i = 0; i <= (int) size; i++)
 	{
 		if (array[i] == index[array[i]])
