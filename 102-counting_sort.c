@@ -119,11 +119,11 @@ void counting_sort(int *array, size_t size)
 	sorted = malloc(size * sizeof(int));
 
 	for (i = 0; i <= (int) size; i++)
-	{
 		if (array[i] == index[array[i]])
 			sorted[sumCount[array[i]] - 1] = array[i];
-	}
 
-	print_array(sorted, size);
+	for (i = 0; i < (int) size; i++)
+		array[i] = sorted[i];
+
 	cleanup(index, count, sumCount, sorted);
 }
