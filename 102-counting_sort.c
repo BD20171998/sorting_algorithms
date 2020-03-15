@@ -27,7 +27,7 @@ void cleanup(int *ind, int *cnt, int *sum, int *srt)
 
 void edge_cases(int *arr, size_t s)
 {
-	if (arr == NULL || size < 2)
+	if (arr == NULL || s < 2)
 		return;
 }
 
@@ -125,5 +125,5 @@ void counting_sort(int *array, size_t size)
 	}
 
 	print_array(sorted, size);
-	cleanup(index, count, sum, sorted);
+	cleanup(index, count, sumCount, sorted);
 }
