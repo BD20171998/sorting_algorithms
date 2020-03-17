@@ -33,6 +33,10 @@ General
 
 - Write a function that sorts an array of integers in ascending order using the Quick sort algorithm
 
+### [4. Shell sort - Knuth Sequence](./100-shell_sort.c)
+
+- Write a function that sorts an array of integers in ascending order using the Shell sort algorithm, using the Knuth sequence
+
 ### [6. Counting sort](./102-counting_sort.c)
 
 - Write a function that sorts an array of integers in ascending order using the Counting sort algorithm
