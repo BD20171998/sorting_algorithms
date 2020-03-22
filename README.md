@@ -50,6 +50,9 @@ General
 
 - Write a function that sorts an array of integers in ascending order using the Heap sort algorithm
 
+### [9. Radix sort](./105-radix_sort.c)
+
+- Write a function that sorts an array of integers in ascending order using the Radix sort algorithm
 
 ## Authors
 
